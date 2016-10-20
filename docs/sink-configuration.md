@@ -218,6 +218,26 @@ In order to use AWS Managed Elastic we need to use one of the following methods:
             key: aws.secret
 	```
 
+### Splunk
+This sink supports monitoring metrics and events and can be used with 
+Splunk Enterprise 6.3 or later. To use the Splunk sink add the following flag:
+```
+    --sink=splunk:<SPLUNK_HTTP_EVENT_COLLECTOR_URL>[?<OPTIONS>]
+```
+
+The following options can be set in query string:
+
+* `index` - the index for metrics and events. The default is `heapster`
+* `sourcetype` - the sourcetype for metrics and events. The default is 
+`heapster:metrics` for metrics and `heapster:events` for events
+* `source` - the source for metrics and events. 
+* `hec-token` - the token for Splunk HTTP event collector
+
+For example:
+```
+  --sink=splunk:http://splunk.example.com:8088/hec?hec-token=ef456234ab&index=main
+```
+
 ## Using multiple sinks
 
 Heapster can be configured to send k8s metrics and events to multiple sinks by specifying the`--sink=...` flag multiple times.

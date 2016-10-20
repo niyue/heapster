@@ -22,6 +22,7 @@ import (
 	"k8s.io/heapster/common/flags"
 	"k8s.io/heapster/metrics/core"
 	"k8s.io/heapster/metrics/sinks/elasticsearch"
+	"k8s.io/heapster/metrics/sinks/splunk"
 	"k8s.io/heapster/metrics/sinks/gcm"
 	"k8s.io/heapster/metrics/sinks/hawkular"
 	"k8s.io/heapster/metrics/sinks/influxdb"
@@ -60,6 +61,8 @@ func (this *SinkFactory) Build(uri flags.Uri) (core.DataSink, error) {
 		return opentsdb.CreateOpenTSDBSink(&uri.Val)
 	case "elasticsearch":
 		return elasticsearch.NewElasticSearchSink(&uri.Val)
+	case "splunk":
+		return splunk.NewSplunkSink(&uri.Val)
 	default:
 		return nil, fmt.Errorf("Sink not recognized: %s", uri.Key)
 	}
